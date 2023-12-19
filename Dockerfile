@@ -81,7 +81,7 @@ RUN rm -rf /tmp/*
 ENV ICONIFY_API_VERSION=$ICONIFY_API_VERSION
 
 # Expose the listening port of Iconify API
-######## EXPOSE 3000
+EXPOSE 3000
 
 # Add a healthcheck (default every 30 secs)
 ######## HEALTHCHECK CMD curl http://localhost:3000/ || exit 1
