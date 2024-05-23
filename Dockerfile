@@ -11,12 +11,12 @@ FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
 ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 
 # This handles using special APT sources during build only (it is safe to comment these 3 following lines out):
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.original
-COPY tmp/sources.list /tmp/sources.list.tmp
-RUN ([ -s /tmp/sources.list.tmp ] && mv -f /tmp/sources.list.tmp /etc/apt/sources.list && cat /etc/apt/sources.list) || (cat /etc/apt/sources.list)
+#RUN cp /etc/apt/sources.list /etc/apt/sources.list.original
+#COPY tmp/sources.list /tmp/sources.list.tmp
+#RUN ([ -s /tmp/sources.list.tmp ] && mv -f /tmp/sources.list.tmp /etc/apt/sources.list && cat /etc/apt/sources.list) || (cat /etc/apt/sources.list)
 
 # Add temporary CERTs needed during build (it is safe to comment the following 1 line out):
-COPY tmp/build-ca-cert.crt /usr/local/share/ca-certificates/build-ca-cert.crt
+#COPY tmp/build-ca-cert.crt /usr/local/share/ca-certificates/build-ca-cert.crt
 
 # Install tools, create data dir, add user and set rights
 RUN set -ex && \
@@ -29,11 +29,11 @@ RUN set -ex && \
 		git && \
     mkdir -p /data/iconify-api && \
     apt-get clean && \
-    rm -rf /tmp/* && \
+    rm -rf /tmp/*
     # Restore the original sources.list
-    ([ -s /etc/apt/sources.list.original ] && mv /etc/apt/sources.list.original /etc/apt/sources.list) && \
+    #([ -s /etc/apt/sources.list.original ] && mv /etc/apt/sources.list.original /etc/apt/sources.list) && \
     # Remove the temporary build CA cert
-    rm -f /usr/local/share/ca-certificates/build-ca-cert.crt
+    #rm -f /usr/local/share/ca-certificates/build-ca-cert.crt
 
 # Set work directory
 WORKDIR /data/iconify-api
@@ -41,6 +41,9 @@ WORKDIR /data/iconify-api
 #### Stage iconify-api-install #########################################################################################
 FROM base AS iconify-api-install
 ARG SRC_PATH
+
+# Copy env
+COPY ${SRC_PATH}.env  ./
 
 # Copy package files, install dependencies
 COPY ${SRC_PATH}*.json ./
