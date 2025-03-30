@@ -5,8 +5,7 @@ ARG ICONIFY_API_VERSION=3.1.1
 ARG SRC_PATH=./
 
 #### Stage BASE ########################################################################################################
-#FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
-FROM plext-docker-iconify AS base
+FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
 
 # This gives node.js apps access to the OS CAs
 ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
