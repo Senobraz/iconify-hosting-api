@@ -57,7 +57,7 @@ export const appConfig: AppConfig = {
  */
 export const httpHeaders: string[] = [
 	// CORS
-	'Access-Control-Allow-Origin: *',
+	'Access-Control-Allow-Origin: "https://app.enotespace.ru" always',
 	'Access-Control-Allow-Methods: GET, OPTIONS',
 	'Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Accept-Encoding',
 	'Access-Control-Max-Age: 86400',
